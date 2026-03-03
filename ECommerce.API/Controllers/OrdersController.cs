@@ -19,21 +19,19 @@ public class OrdersController : ControllerBase
     }
 
 
-    [HttpPost]
-    public async Task<ActionResult<OrderDto>> CreateOrder([FromBody] CreateOrderDto createOrderDto)
+    [HttpPost("checkout")]
+    public async Task<ActionResult<OrderDto>> Checkout()
     {
         try
         {
-
             var userIdString = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            
             if (string.IsNullOrEmpty(userIdString) || !Guid.TryParse(userIdString, out var userId))
             {
                 return Unauthorized(new { message = "Invalid token payload." });
             }
 
-            var order = await _orderService.CreateOrderAsync(userId, createOrderDto);
-            return CreatedAtAction(nameof(GetUserOrders), new { }, order);
+            var order = await _orderService.CheckoutCartAsync(userId);
+            return Ok(order);
         }
         catch (Exception ex)
         {

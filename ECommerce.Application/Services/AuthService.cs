@@ -37,7 +37,7 @@ public class AuthService : IAuthService
             FirstName = dto.FirstName,
             LastName = dto.LastName,
             Email = dto.Email,
-            PasswordHash = passwordHash
+            PasswordHash = passwordHash,
         };
 
         

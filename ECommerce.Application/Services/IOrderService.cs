@@ -6,4 +6,5 @@ public interface IOrderService
 {
     Task<OrderDto> CreateOrderAsync(Guid userId, CreateOrderDto createOrderDto);
     Task<IEnumerable<OrderDto>> GetUserOrdersAsync(Guid userId);
+    Task<OrderDto> CheckoutCartAsync(Guid userId);
 }
